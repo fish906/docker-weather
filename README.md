@@ -35,5 +35,5 @@ If you decide to host the service publicaly, make sure to account for your local
 The Dashboard uses OpenWeatherAPI to collect its data. Therefore, you need an API KEY from OpenWeather (you need to create a free account).
 To specify the location, put in the CITY ID of the desired location in the docker compose file.
 
-Copy the required files into your local directory using wget.
+Copy the required files into your local directory using git clone.
 After that, use docker compose up -d.
