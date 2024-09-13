@@ -28,8 +28,12 @@ The Docker Weather Dashboard is a web application designed to provide real-time 
     - Containerization: Docker is used to containerize the application, and Docker Compose manages the deployment and configuration of the Docker container.
 
 # Deployment
-The project is set up using Docker Compose, which simplifies the deployment process by managing environment variables and container configurations. The application runs in a Docker container, exposing     the weather dashboard on port 5000. (I recommend note exposing the container to the internet and instead run it behind a reverse proxy)
+The project is set up using Docker Compose, which simplifies the deployment process by managing environment variables and container configurations. The application runs in a Docker container, exposing     the weather dashboard on port 5000. (I don't recommend exposing the container to the internet and, if needed to, running it behind a reverse proxy)
 To custimze the website's title and header, simply edit the corresponding environment variable.
+If you decide to host the servie publically, make sure to account for your local data privacy law (e.g. cookies banners).
 
 The Dashboard uses OpenWeatherAPI to collect it's data. Therefore you need an API KEY from OpenWeather (you need to create a free account).
-To specify the location put in the CITY ID of the desired location.
+To specify the location put in the CITY ID of the desired location in the docker compose file.
+
+Copy the required files into your local directory using wget.
+After that use docker compose up -d.
