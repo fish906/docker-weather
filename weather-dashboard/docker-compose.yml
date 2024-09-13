@@ -1,6 +1,6 @@
 services:
   web:
-    image: weather-dashboard
+    image: fish906/weather-dashboard
     container_name: weather-dashboard
 
     ports:
