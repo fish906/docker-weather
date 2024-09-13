@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Weather</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/static/favicon.ico"> <!-- Favicon -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Local Weather</h1>
+        </header>
+
+        <section class="weather-card">
+            <h2>Current Weather</h2>
+            <div class="weather-icon">
+                <img src="/static/icons/weather-icons/{{ weather['weather'][0]['icon'] }}.png" alt="{{ weather['weather'][0]['description'] }} icon">
+            </div>
+            <div class="weather-details">
+                <p><span class="label">Temperature:</span> {{ weather['main']['temp'] }} °C</p>
+                <p><span class="label">Weather:</span> {{ weather['weather'][0]['description'].title() }}</p>
+                <p><span class="label">Humidity:</span> {{ weather['main']['humidity'] }}%</p>
+                <p><span class="label">Wind Speed:</span> {{ weather['wind']['speed'] }} m/s</p>
+            </div>
+        </section>
+
+        <section class="forecast-card">
+            <h2>48-Hour Forecast</h2>
+            <canvas id="forecastChart"></canvas> <!-- Canvas element for the chart -->
+        </section>
+
+        <section class="radar-card">
+            <h2>Rain Radar</h2>
+            <!-- Windy Radar Embed Code -->
+            <iframe src="https://embed.windy.com/embed2.html?lat={radar_lat}&lon={radar_lon}&zoom=9&overlay=radar" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
+        </section>
+
+        <footer>
+            <p>Powered by OpenWeatherMap | © 2024</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fetch forecast data from the server
+        const forecastData = {{ forecast|tojson }};
+    
+        // Extract relevant data for the chart
+        const labels = forecastData.list.map(entry => {
+            // Format date and time for readability
+            return new Date(entry.dt_txt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        });
+        const temperatures = forecastData.list.map(entry => entry.main.temp);
+        const rainProbabilities = forecastData.list.map(entry => entry.pop * 100); // Convert to percentage
+
+        // Create the chart
+        const ctx = document.getElementById('forecastChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Temperature (°C)',
+                        data: temperatures,
+                        borderColor: '#FF5733', // Red color for temperature
+                        backgroundColor: 'rgba(255, 87, 51, 0.2)', // Light red background
+                        borderWidth: 2,
+                        tension: 0.3, // Smooth curves
+                        yAxisID: 'y1',
+                    },
+                    {
+                        label: 'Rain Probability (%)',
+                        data: rainProbabilities,
+                        borderColor: '#1E90FF', // Blue color for rain probability
+                        backgroundColor: 'rgba(30, 144, 255, 0.2)', // Light blue background
+                        borderWidth: 2,
+                        tension: 0.3, // Smooth curves
+                        yAxisID: 'y2',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true, // Allow chart to resize
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true, // Use point styles in legend
+                            boxWidth: 8,
+                            font: {
+                                size: 12,
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.dataset.label || '';
+                                if (label) {
+                                    return `${label}: ${context.raw} ${context.dataset.yAxisID === 'y1' ? '°C' : '%'}`;
+                                }
+                                return '';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time',
+                            font: {
+                                size: 14,
+                                weight: 'bold',
+                            }
+                        },
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 6,
+                            maxRotation: 45, // Rotate labels to avoid overlap
+                            minRotation: 30
+                        }
+                    },
+                    y1: {
+                        title: {
+                            display: true,
+                            text: 'Temperature (°C)',
+                            font: {
+                                size: 14,
+                                weight: 'bold',
+                            }
+                        },
+                        grid: {
+                            drawBorder: false
+                        }
+                    },
+                    y2: {
+                        title: {
+                            display: true,
+                            text: 'Rain Probability (%)',
+                            font: {
+                                size: 14,
+                                weight: 'bold',
+                            }
+                        },
+                        position: 'right',
+                        grid: {
+                            drawBorder: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
