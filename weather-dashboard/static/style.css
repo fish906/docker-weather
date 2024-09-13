@@ -142,3 +142,25 @@ a:focus, button:focus, input:focus, textarea:focus {
     outline: 2px solid #007BFF; /* Highlight focus state */
     outline-offset: 2px;
 }
+
+/* Host Google Fonts locally */
+@font-face {
+    font-family: 'Poppins';
+    src: url('/static/fonts/Poppins-Regular.woff2') format('woff2'),
+         url('/static/fonts/Poppins-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/static/fonts/Poppins-Bold.woff2') format('woff2'),
+         url('/static/fonts/Poppins-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Usage */
+body {
+    font-family: 'Poppins', sans-serif;
+}
