@@ -46,7 +46,9 @@ def index():
 
     radar_lat = os.getenv("RADAR_LAT")
     radar_lon = os.getenv("RADAR_LON")
-    return render_template("index.html", weather=weather_data, forecast=forecast_data, radar_lat=radar_lat, radar_lon=radar_lon)
+    header_title = os.getenv("HEADER_TITLE")
+    site_title = os.getenv("SITE_TITLE")
+    return render_template("index.html", weather=weather_data, forecast=forecast_data, radar_lat=radar_lat, radar_lon=radar_lon, site_title=site_title, header_title=header_title)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
