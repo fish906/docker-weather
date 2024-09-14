@@ -9,7 +9,7 @@ services:
     environment:
       - WEATHER_API_KEY=<Your-OpenWeatherMap_API_KES>
       - CITY_ID=<YOUR_CITY_ID>  # City ID from OpenWeatherMap
-      - RADAR_LONG=<LONGITUDE> # Longitude of your position for the rain radar
+      - RADAR_LON=<LONGITUDE> # Longitude of your position for the rain radar
       - RADAR_LAT=<LATITUDE> # Latitude of your position for the rain radar
       - HEADER_TITLE=Local Weather # Set the header title of the website
       - SITE_TITLE=Your local Weather # Set the title of the website
