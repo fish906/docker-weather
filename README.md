@@ -28,7 +28,7 @@ The Docker Weather Dashboard is a web application designed to provide real-time 
     - Containerization: Docker is used to containerize the application, and Docker Compose manages the deployment and configuration of the Docker container.
 
 # Deployment
-The project is set up using Docker Compose, which simplifies the deployment process by managing environment variables and container configurations. The application runs in a Docker container, exposing     the weather dashboard on port 5000. (I don't recommend exposing the container to the internet and, if needed, run it behind a reverse proxy)
+The project is set up using Docker Compose, which simplifies the deployment process by managing environment variables and container configurations. The application runs in a Docker container, exposing     the weather dashboard on port 5000. (I don't recommend exposing the container to the internet and, if needed, to run it behind a reverse proxy)
 To custimize the website's title and header, simply edit the corresponding environment variable.
 If you decide to host the service publicaly, make sure to account for your local data privacy law (e.g. cookie banners).
 
