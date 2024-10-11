@@ -9,7 +9,7 @@ The Docker Weather Dashboard is a web application designed to provide real-time 
 2. 48-Hour Hourly Forecast:
     - Temperature and Rain Probability: Provides forecast for the next 24 hours in three hour intervals.
     - Graphical Representation: The forecast data is displayed using a line chart created with Chart.js, including a vivid graphical representation of temperature and rain probability.
-    - NOTE: I'm using OpenWeatherAPI to get weather data. Due to API limitations, the forecast currently provides just 3-hour intervals. However there is a paid version which can provide an hourly forecast.
+    - NOTE: I'm using OpenWeatherAPI to get weather data. Due to API limitations, the forecast currently just provides 3-hour intervals. However there is a paid version which can provide an hourly forecast.
    
 3. Live Rain Radar:
     - Embedded Radar: Integrates an interactive rain radar from Windy.com to show live precipitation data for your location. The radar provides an up-to-date view of rain patterns in the area.
